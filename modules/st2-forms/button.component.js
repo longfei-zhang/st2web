@@ -14,7 +14,7 @@ export class Toggle extends React.Component {
 
   _id = uniqueId('st2toggle')
   
-  onChange(value) {
+  handleChange(value) {
     this.props.onChange(value);
   }
 
@@ -22,7 +22,7 @@ export class Toggle extends React.Component {
     const { title, value } = this.props;
 
     return <div className="st2-forms__switch">
-      <input id={this._id} type="checkbox" checked={value} onChange={({ target: { checked } }) => this.onChange(checked)} />
+      <input id={this._id} type="checkbox" checked={value || false} onChange={({ target: { checked } }) => this.handleChange(checked)} />
       <label htmlFor={this._id} />
       <label htmlFor={this._id} className="st2-forms__switch-title">{ title }</label>
     </div>;
