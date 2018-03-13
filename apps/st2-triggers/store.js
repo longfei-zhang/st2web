@@ -45,7 +45,7 @@ const triggerReducer = (state = {}, input) => {
         case 'success':
           trigger = {
             ...triggers.find(item => item.ref === input.payload.ref),
-            ...input.payload
+            ...input.payload,
           };
           break;
         case 'error':
@@ -66,7 +66,7 @@ const triggerReducer = (state = {}, input) => {
           // triggers.find(item => item.ref === input.payload.ref)
           trigger = {
             ...trigger,
-            sensor: input.payload
+            sensor: input.payload,
           };
           break;
         case 'error':

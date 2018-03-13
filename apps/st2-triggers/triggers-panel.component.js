@@ -16,8 +16,6 @@ import {
   Panel,
   PanelView,
   Toolbar,
-  ToolbarButton,
-  ToolbarActions,
   ToolbarSearch,
   Content,
   ContentEmpty,
@@ -68,6 +66,11 @@ export default class TriggersPanel extends React.Component {
     groups: PropTypes.array,
     filter: PropTypes.string,
     collapsed: PropTypes.bool,
+
+    triggerSpec: PropTypes.object,
+    criteriaSpecs: PropTypes.object,
+    actionSpec: PropTypes.object,
+    packSpec: PropTypes.object,
   }
 
   state = {
@@ -112,7 +115,7 @@ export default class TriggersPanel extends React.Component {
           .catch((err) => {
             notification.error('Unable to retrieve sensor types.', { err });
             throw err;
-          })
+          }),
       ]).then(result => {
         const [ triggers, sensors ] = result;
 

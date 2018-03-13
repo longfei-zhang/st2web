@@ -8,11 +8,8 @@ import notification from '@stackstorm/module-notification';
 import setTitle from '@stackstorm/module-title';
 
 import { Link } from 'react-router-dom';
-import AutoFormCheckbox from '@stackstorm/module-auto-form/modules/checkbox';
-import Criteria from '@stackstorm/module-criteria';
-import Button, { Toggle } from '@stackstorm/module-forms/button.component';
+import { Toggle } from '@stackstorm/module-forms/button.component';
 import Highlight from '@stackstorm/module-highlight';
-import PackIcon from '@stackstorm/module-pack-icon';
 import {
   PanelDetails,
   DetailsHeader,
@@ -37,10 +34,6 @@ export default class TriggersDetails extends React.Component {
     id: PropTypes.string,
     section: PropTypes.string,
     trigger: PropTypes.object,
-  }
-
-  state = {
-    editing: null,
   }
 
   componentDidMount() {
@@ -98,14 +91,14 @@ export default class TriggersDetails extends React.Component {
       promise: api.client.index.request({ method: 'put', path: `/sensortypes/${sensor.ref}`}, { ...sensor, enabled: !sensor.enabled }),
     })
       .catch((err) => {
-        notification.error(`Unable to retrieve trigger "${id}".`, { err });
+        notification.error(`Unable to retrieve sensor "${sensor.ref}".`, { err });
         throw err;
       })
     ;
   }
 
   render() {
-    const { id, section, trigger, triggerSpec } = this.props;
+    const { section, trigger } = this.props;
 
     if (!trigger) {
       return null;
@@ -130,8 +123,8 @@ export default class TriggersDetails extends React.Component {
         />
         <DetailsToolbar>
           { trigger.sensor
-            ? <Toggle title="enabled" value={trigger.sensor.enabled} onChange={() => this.handleToggleEnable()}/>
-            : <Toggle title="no sensor" value={false} onChange={() => this.handleToggleEnable()} disabled/>
+            ? <Toggle title="enabled" value={trigger.sensor.enabled} onChange={() => this.handleToggleEnable()} />
+            : <Toggle title="no sensor" value={false} onChange={() => this.handleToggleEnable()} disabled />
           }
           <DetailsToolbarSeparator />
         </DetailsToolbar>
@@ -146,12 +139,12 @@ export default class TriggersDetails extends React.Component {
                       type: 'object',
                       properties: {
                         name: {
-                          type: 'string'
+                          type: 'string',
                         },
                         description: {
-                          type: 'string'
-                        }
-                      }
+                          type: 'string',
+                        },
+                      },
                     }}
                     data={trigger}
                     disabled
